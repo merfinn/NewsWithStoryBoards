@@ -1,0 +1,55 @@
+//
+//  APIService.swift
+//  MimiArtistsAndSongs
+//
+//  Created by merve kavaklioglu on 29.11.19.
+//  Copyright © 2019 Merve Kavaklioglu. All rights reserved.
+//
+
+import UIKit
+
+enum APIError: String, Error {
+    case noNetwork = "No Network"
+    case serverOverload = "Server is overloaded"
+    case permissionDenied = "You don't have permission"
+}
+
+protocol APIServiceProtocol {
+    /**
+    Fetch articles from API
+    
+    - parameter complete:   A completion block.
+     
+    */
+    func fetchArticles( complete: @escaping ( _ success: Bool, _ articles: [Article], _ error: APIError? )->() )
+}
+
+class APIService: APIServiceProtocol {
+    func fetchArticles( complete: @escaping ( _ success: Bool, _ articles: [Article], _ error: APIError? )->() ) {
+        let newsUrl = URL(string: "https://f7433597-7f68-4fdd-a0df-ce136bf7615f.mock.pstmn.io/news")!
+        
+        let articleResource = Resource<Articles>(url: newsUrl) { data in
+            return try? JSONDecoder().decode(Articles.self, from: data)
+        }
+        
+        Webservice().load(resource: articleResource) { result in
+            if let articleList = result {
+                complete( true, articleList.articles, nil )
+            }
+        }
+    }
+}
+
+extension APIService {
+    /**
+    Fetch Data from a given URL
+    
+    - parameter url:        A URL to get the data
+    - parameter completion: A completion block.
+    
+    */
+    public static func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+}
+
