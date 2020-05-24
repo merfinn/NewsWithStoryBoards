@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Foundation
+import Combine
 
 /**
 * A cell for previewing an Article
@@ -18,29 +20,29 @@ class ArticleListCell: UITableViewCell {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    
+    private var cancellable: AnyCancellable?
+
     var articleListCellViewModel :ArticleListCellViewModel? {
         didSet {
             titleLabel.text = articleListCellViewModel?.titleText
             descriptionLabel.text = articleListCellViewModel?.descText
             dateAuthorPlaceLabel.text = articleListCellViewModel?.dateAuthorText
             contentLabel.text = articleListCellViewModel?.contentText
-            
-            /* Uses cached data or retrieves Data of the Image*/
-            if articleListCellViewModel?.cachedImageData != nil {
-                mainImageView.image = UIImage(data: articleListCellViewModel!.cachedImageData!)
-            } else {
-                if let url = URL( string: articleListCellViewModel?.imageUrl ?? "" ) {
-                    APIService.getData(from: url) { (data, response, error) in
-                        DispatchQueue.main.async() {    // execute on main thread
-                            if let data = data {
-                                self.articleListCellViewModel?.cachedImageData = data
-                                self.mainImageView.image = UIImage(data: data)
-                            }
-                        }
-                    }
-                }
-            }
+            cancellable = loadImage(for: (articleListCellViewModel?.imageUrl)!).sink { [unowned self] image in self.showImage(image: image) }
         }
     }
+    
+    private func showImage(image: UIImage?) {
+        mainImageView.image = image
+    }
+
+    private func loadImage(for imageUrl: String) -> AnyPublisher<UIImage?, Never> {
+        return Just(imageUrl)
+        .flatMap({ poster -> AnyPublisher<UIImage?, Never> in
+            let url = URL(string: imageUrl)!
+            return ImageLoader.shared.loadImage(from: url)
+        })
+        .eraseToAnyPublisher()
+    }
 }
+

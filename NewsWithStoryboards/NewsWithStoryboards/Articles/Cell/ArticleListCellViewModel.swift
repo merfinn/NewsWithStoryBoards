@@ -15,5 +15,4 @@ struct ArticleListCellViewModel {
     let dateAuthorText: String?
     let contentText: String?
     let sourceNameText: String?
-    var cachedImageData: Data?
 }
