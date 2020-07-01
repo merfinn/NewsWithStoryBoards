@@ -32,8 +32,8 @@ class ArticlesViewController: UIViewController {
     }
 
     private func configureViewModel() {
-        // Naive binding
-        viewModel.updateLoadingStatus = { [weak self] () in
+
+        viewModel.updateLoadingStatus = { [weak self] in
             DispatchQueue.main.async {
                 let isLoading = self?.viewModel.isLoading ?? false
                 if isLoading {
@@ -49,7 +49,7 @@ class ArticlesViewController: UIViewController {
                 }
             }
         }
-        viewModel.reloadTableViewClosure = { [weak self] () in
+        viewModel.reloadTableViewClosure = { [weak self] in
             DispatchQueue.main.async {
                 self?.articleTableView?.reloadData()
             }
@@ -62,6 +62,7 @@ class ArticlesViewController: UIViewController {
 extension ArticlesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "articleCellIdentifier", for: indexPath) as? ArticleListCell else {
             fatalError("Cell does not exist in storyboard")
         }
