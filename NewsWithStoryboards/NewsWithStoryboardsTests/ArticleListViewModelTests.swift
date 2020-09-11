@@ -135,6 +135,7 @@ class ArticleListViewModelTests: XCTestCase {
         let articleWithoutDate = Article(author: "author", title: "title" , description: "desc" , url: "url", urlToImage: "url", publishedAt:nil, content: "content", source: Source(id: "id", name: "name"))
         let articleWithoutArth = Article(author: nil, title: "title" , description: "desc" , url: "url", urlToImage: "url", publishedAt:day, content: "content", source: Source(id: "id", name: "name"))
         let articleWithoutArthAndDate = Article(author: nil, title: "title" , description: "desc" , url: "url", urlToImage: "url", publishedAt:nil, content: "content", source: Source(id: "id", name: "name"))
+        let articleWithoutImageURL = Article(author: "author", title: "title" , description: "desc" , url: "url", urlToImage: nil , publishedAt:day, content: "content", source: Source(id: "id", name: "name"))
 
         
         // When creat cell view model
@@ -145,6 +146,7 @@ class ArticleListViewModelTests: XCTestCase {
         let cellViewModelWithoutDate = sut!.createCellViewModel( article: articleWithoutDate)
         let cellViewModelWithoutArth = sut!.createCellViewModel( article: articleWithoutArth)
         let cellViewModelWithoutArthAndDate = sut!.createCellViewModel( article: articleWithoutArthAndDate)
+        let cellViewModelWithoutImageURL = sut!.createCellViewModel( article: articleWithoutImageURL)
 
         XCTAssertEqual(article.title, cellViewModel.titleText)
         XCTAssertEqual( cellViewModel.dateAuthorText , "2019.12.19 , author")
@@ -160,6 +162,9 @@ class ArticleListViewModelTests: XCTestCase {
         XCTAssertEqual(cellViewModelWithoutArthAndDate.dateAuthorText, "")
         XCTAssertEqual(cellViewModelWithoutArth.dateAuthorText, "2019.12.19")
         XCTAssertEqual(cellViewModelWithoutDate.dateAuthorText, "author")
+        
+        XCTAssertEqual(cellViewModelWithoutImageURL.imageUrl, nil)
+
 
     }
 }

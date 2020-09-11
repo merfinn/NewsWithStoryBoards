@@ -11,8 +11,8 @@ import Foundation
 import Combine
 
 /**
-* A cell for previewing an Article
-*/
+ * A cell for previewing an Article
+ */
 class ArticleListCell: UITableViewCell {
     
     @IBOutlet weak var contentLabel: UILabel!
@@ -21,7 +21,7 @@ class ArticleListCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     private var cancellable: AnyCancellable?
-
+    
     var articleListCellViewModel :ArticleListCellViewModel? {
         didSet {
             titleLabel.text = articleListCellViewModel?.titleText
@@ -29,20 +29,22 @@ class ArticleListCell: UITableViewCell {
             dateAuthorPlaceLabel.text = articleListCellViewModel?.dateAuthorText
             contentLabel.text = articleListCellViewModel?.contentText
             
-            cancellable = loadImage(for: (articleListCellViewModel?.imageUrl)!).sink { [unowned self] image in self.showImage(image: image) }
+            if articleListCellViewModel?.imageUrl != nil {
+                cancellable = loadImage(for: (articleListCellViewModel?.imageUrl)!).sink { [unowned self] image in self.showImage(image: image) }
+            }
         }
     }
     
     private func showImage(image: UIImage?) {
         mainImageView.image = image
     }
-
+    
     private func loadImage(for imageUrl: String) -> AnyPublisher<UIImage?, Never> {
         return Just(imageUrl)
-        .flatMap({ poster -> AnyPublisher<UIImage?, Never> in
-            let url = URL(string: imageUrl)!
-            return ImageLoader.shared.loadImage(from: url)
-        })
-        .eraseToAnyPublisher()
+            .flatMap({ poster -> AnyPublisher<UIImage?, Never> in
+                let url = URL(string: imageUrl)!
+                return ImageLoader.shared.loadImage(from: url)
+            })
+            .eraseToAnyPublisher()
     }
 }

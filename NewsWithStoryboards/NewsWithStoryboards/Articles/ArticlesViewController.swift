@@ -80,6 +80,7 @@ extension ArticlesViewController: UITableViewDataSource {
 
 extension ArticlesViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         viewModel.userPressed(at: indexPath)
         if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "webviewId") as? DetailViewController {
             viewController.url = viewModel.selectedArticle?.url
