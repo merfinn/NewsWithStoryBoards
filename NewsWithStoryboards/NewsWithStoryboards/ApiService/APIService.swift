@@ -16,11 +16,11 @@ enum APIError: String, Error {
 
 protocol APIServiceProtocol {
     /**
-    Fetch articles from API
-    
-    - parameter complete:   A completion block.
+     Fetch articles from API
      
-    */
+     - parameter complete:   A completion block.
+     
+     */
     func fetchArticles( complete: @escaping ( _ success: Bool, _ articles: [Article], _ error: APIError? )->() )
 }
 
@@ -39,17 +39,3 @@ class APIService: APIServiceProtocol {
         }
     }
 }
-
-extension APIService {
-    /**
-    Fetch Data from a given URL
-    
-    - parameter url:        A URL to get the data
-    - parameter completion: A completion block.
-    
-    */
-    public static func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-}
-

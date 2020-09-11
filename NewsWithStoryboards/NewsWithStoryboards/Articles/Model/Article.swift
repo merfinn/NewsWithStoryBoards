@@ -9,7 +9,7 @@
 import Foundation
 
 /**
-* Lightweight lis for a Article array
+* Lightweight list for a Article array
 */
 struct Articles: Codable {
     let articles: [Article]
@@ -28,15 +28,4 @@ struct Article: Codable {
     let publishedAt: String?
     let content: String?
     let source: Source
-    
-    private enum CodingKeys: String, CodingKey {
-        case author
-        case title
-        case description
-        case url
-        case urlToImage
-        case publishedAt
-        case content
-        case source
-    }
 }

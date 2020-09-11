@@ -28,6 +28,7 @@ class ArticleListCell: UITableViewCell {
             descriptionLabel.text = articleListCellViewModel?.descText
             dateAuthorPlaceLabel.text = articleListCellViewModel?.dateAuthorText
             contentLabel.text = articleListCellViewModel?.contentText
+            
             cancellable = loadImage(for: (articleListCellViewModel?.imageUrl)!).sink { [unowned self] image in self.showImage(image: image) }
         }
     }
@@ -45,4 +46,3 @@ class ArticleListCell: UITableViewCell {
         .eraseToAnyPublisher()
     }
 }
-
