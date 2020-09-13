@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-import Combine
+import SDWebImage
 
 /**
  * A cell for previewing an Article
@@ -20,7 +20,6 @@ class ArticleListCell: UITableViewCell {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    private var cancellable: AnyCancellable?
     
     var articleListCellViewModel :ArticleListCellViewModel? {
         didSet {
@@ -28,23 +27,7 @@ class ArticleListCell: UITableViewCell {
             descriptionLabel.text = articleListCellViewModel?.descText
             dateAuthorPlaceLabel.text = articleListCellViewModel?.dateAuthorText
             contentLabel.text = articleListCellViewModel?.contentText
-            
-            if articleListCellViewModel?.imageUrl != nil {
-                cancellable = loadImage(for: (articleListCellViewModel?.imageUrl)!).sink { [unowned self] image in self.showImage(image: image) }
-            }
+            mainImageView?.sd_setImage(with: URL( string: articleListCellViewModel?.imageUrl ?? "" ), completed: nil)
         }
-    }
-    
-    private func showImage(image: UIImage?) {
-        mainImageView.image = image
-    }
-    
-    private func loadImage(for imageUrl: String) -> AnyPublisher<UIImage?, Never> {
-        return Just(imageUrl)
-            .flatMap({ poster -> AnyPublisher<UIImage?, Never> in
-                let url = URL(string: imageUrl)!
-                return ImageLoader.shared.loadImage(from: url)
-            })
-            .eraseToAnyPublisher()
     }
 }
