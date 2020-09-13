@@ -1,0 +1,6 @@
+framework module Pods_NewsWithStoryboards {
+  umbrella header "Pods-NewsWithStoryboards-umbrella.h"
+
+  export *
+  module * { export * }
+}
