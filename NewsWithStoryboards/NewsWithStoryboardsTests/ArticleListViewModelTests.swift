@@ -126,16 +126,17 @@ class ArticleListViewModelTests: XCTestCase {
     
     func test_cell_view_model() {
         //Given articles
-        let day = "2019-12-19T12:26:00Z"
+        let day:Date = Date()
         
-        let article = Article(author: "author", title: "title" , description: "desc" , url: "url", urlToImage: "url", publishedAt:day, content: "content", source: Source(id: "id", name: "name"))
-        let articleWithoutDesc = Article(author: "author", title: "title" , description: nil , url: "url", urlToImage: "url", publishedAt:day, content: "content", source: Source(id: "id", name: "name"))
-        let articleWithoutTitle = Article(author: "author", title: nil , description: "desc" , url: "url", urlToImage: "url", publishedAt:day, content: "content", source: Source(id: "id", name: "name"))
-        let articleWithoutTitleAndDesc = Article(author: "author", title: nil , description: nil , url: "url", urlToImage: "url", publishedAt:day, content: "content", source: Source(id: "id", name: "name"))
-        let articleWithoutDate = Article(author: "author", title: "title" , description: "desc" , url: "url", urlToImage: "url", publishedAt:nil, content: "content", source: Source(id: "id", name: "name"))
-        let articleWithoutArth = Article(author: nil, title: "title" , description: "desc" , url: "url", urlToImage: "url", publishedAt:day, content: "content", source: Source(id: "id", name: "name"))
-        let articleWithoutArthAndDate = Article(author: nil, title: "title" , description: "desc" , url: "url", urlToImage: "url", publishedAt:nil, content: "content", source: Source(id: "id", name: "name"))
-        let articleWithoutImageURL = Article(author: "author", title: "title" , description: "desc" , url: "url", urlToImage: nil , publishedAt:day, content: "content", source: Source(id: "id", name: "name"))
+        let article = Article(source: Source(id: "id", name: "name"), author: "author", title: "title" , articleDescription: "desc" , url: "url", urlToImage: "url", publishedAt:day , content: "content")
+
+        let articleWithoutDesc = Article(source: Source(id: "id", name: "name"), author: "author", title: "title" , articleDescription: nil , url: "url", urlToImage: "url", publishedAt:day, content: "content")
+        let articleWithoutTitle = Article(source: Source(id: "id", name: "name"), author: "author", title: nil , articleDescription: "desc" , url: "url", urlToImage: "url", publishedAt:day, content: "content")
+        let articleWithoutTitleAndDesc = Article(source: Source(id: "id", name: "name"), author: "author", title: nil , articleDescription: nil , url: "url", urlToImage: "url", publishedAt:day, content: "content")
+        let articleWithoutDate = Article(source: Source(id: "id", name: "name"), author: "author", title: "title" , articleDescription: "desc" , url: "url", urlToImage: "url", publishedAt:nil, content: "content")
+        let articleWithoutArth = Article(source: Source(id: "id", name: "name"), author: nil, title: "title" , articleDescription: "desc" , url: "url", urlToImage: "url", publishedAt:day, content: "content")
+        let articleWithoutArthAndDate = Article(source: Source(id: "id", name: "name"), author: nil, title: "title" , articleDescription: "desc" , url: "url", urlToImage: "url", publishedAt:nil, content: "content")
+        let articleWithoutImageURL = Article(source: Source(id: "id", name: "name"), author: "author", title: "title" , articleDescription: "desc" , url: "url", urlToImage: nil , publishedAt:day, content: "content")
 
         
         // When creat cell view model
@@ -153,11 +154,11 @@ class ArticleListViewModelTests: XCTestCase {
 
         XCTAssertEqual(article.urlToImage, cellViewModel.imageUrl)
         
-        XCTAssertEqual(article.description, cellViewModel.descText)
-        XCTAssertEqual(articleWithoutDesc.description, cellViewModelWithoutDesc.descText )
+        XCTAssertEqual(article.articleDescription, cellViewModel.descText)
+        XCTAssertEqual(articleWithoutDesc.articleDescription, cellViewModelWithoutDesc.descText )
         
-        XCTAssertEqual(articleWithoutTitle.description, cellViewModelWithoutTitle.descText)
-        XCTAssertEqual(articleWithoutTitleAndDesc.description, cellViewModelWithoutTitleAndDesc.descText)
+        XCTAssertEqual(articleWithoutTitle.articleDescription, cellViewModelWithoutTitle.descText)
+        XCTAssertEqual(articleWithoutTitleAndDesc.articleDescription, cellViewModelWithoutTitleAndDesc.descText)
         
         XCTAssertEqual(cellViewModelWithoutArthAndDate.dateAuthorText, "")
         XCTAssertEqual(cellViewModelWithoutArth.dateAuthorText, "2019.12.19")

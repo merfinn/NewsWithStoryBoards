@@ -32,8 +32,8 @@ class APIServiceTests: XCTestCase {
         let expect = XCTestExpectation(description: "callback")
         sut.fetchArticles(complete: { (success, articles, error) in
             expect.fulfill()
-            XCTAssertGreaterThan( articles.count, 0)
-            for article in articles {
+            XCTAssertGreaterThan( articles.articles.count, 0)
+            for article in articles.articles {
                 //XCTAssertNotNil(article.source.id) //API Turns a lot of nil :)
                 XCTAssertNotNil(article.source)
             }

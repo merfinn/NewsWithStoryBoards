@@ -8,21 +8,26 @@
 
 import UIKit
 
-struct Resource<T> {
-    let url: URL
-    let parse: (Data) -> T?
-}
 
 final class Webservice {
-    func load<T>(resource: Resource<T>, completion: @escaping (T?) -> ()) {
-        URLSession.shared.dataTask(with: resource.url) { data, response, error in
-            if let data = data {
-                DispatchQueue.main.async {
-                    completion(resource.parse(data))
-                }
-            } else {
-                completion(nil)
+    func load<T: Codable>(with url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> ())  {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completionHandler(nil, response, error)
+                return
             }
+            completionHandler(try? self.newJSONDecoder().decode(T.self, from: data), response, nil)
         }.resume()
     }
+    
+    func newJSONDecoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
+            decoder.dateDecodingStrategy = .iso8601
+        }
+        return decoder
+    }
 }
+
+
+
