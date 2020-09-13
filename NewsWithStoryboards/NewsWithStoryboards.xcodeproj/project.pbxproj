@@ -138,9 +138,9 @@
 		59E6996523AB7471009B74EB /* NewsWithStoryboards */ = {
 			isa = PBXGroup;
 			children = (
-				59E699C623AB89CE009B74EB /* Detail */,
-				59E6999C23AB7549009B74EB /* Articles */,
 				59E6999A23AB7528009B74EB /* ApiService */,
+				59E6999C23AB7549009B74EB /* Articles */,
+				59E699C623AB89CE009B74EB /* Detail */,
 				59E6996623AB7471009B74EB /* AppDelegate.swift */,
 				59E6996823AB7471009B74EB /* SceneDelegate.swift */,
 				59E6996C23AB7471009B74EB /* Main.storyboard */,
@@ -155,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				59E6997F23AB7476009B74EB /* Info.plist */,
+				59E699CD23ABBE09009B74EB /* content.json */,
 				59E699C723ABB25B009B74EB /* APIServiceTests.swift */,
 				59E699CB23ABB83D009B74EB /* ArticleListViewModelTests.swift */,
 			);
@@ -173,7 +174,6 @@
 		59E6999A23AB7528009B74EB /* ApiService */ = {
 			isa = PBXGroup;
 			children = (
-				59E699CD23ABBE09009B74EB /* content.json */,
 				59E699AB23AB75CF009B74EB /* APIService.swift */,
 				59E699AC23AB75CF009B74EB /* Webservice.swift */,
 			);

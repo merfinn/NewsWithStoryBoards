@@ -33,6 +33,9 @@ class APIService: APIServiceProtocol {
             if let articles = articles {
                 complete( true, articles.articles, error as? APIError )
             }
+            else {
+                complete( false, [], error as? APIError )
+            }
         }
     }
 }

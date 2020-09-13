@@ -13,16 +13,12 @@ class ArticlesViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var articleTableView: UITableView!
     
-    lazy var viewModel: ArticleListViewModel = {
-        return ArticleListViewModel()
-    }()
+    lazy var viewModel: ArticleListViewModel = { return ArticleListViewModel() }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Init the static view
-        configureView()
-        // init view model
-        configureViewModel()
+        configureView()   // Init the static view
+        configureViewModel()  // init view model
     }
     
     func configureView() {
@@ -30,23 +26,13 @@ class ArticlesViewController: UIViewController {
         view.accessibilityIdentifier = "article_VC_AI"
         articleTableView.accessibilityIdentifier = "article_TV_AI"
     }
-
+    
     private func configureViewModel() {
-
+        
         viewModel.updateLoadingStatus = { [weak self] in
             DispatchQueue.main.async {
-                let isLoading = self?.viewModel.isLoading ?? false
-                if isLoading {
-                    self?.activityIndicator.startAnimating()
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self?.articleTableView?.alpha = 0.0
-                    })
-                }else {
-                    self?.activityIndicator.stopAnimating()
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self?.articleTableView?.alpha = 1.0
-                    })
-                }
+                let isLoading = self?.viewModel.isLoading ?? false                
+                isLoading ? self?.startAnimatingAndHideList() : self?.stopAnimatingAndShowList()
             }
         }
         viewModel.reloadTableViewClosure = { [weak self] in
@@ -56,7 +42,22 @@ class ArticlesViewController: UIViewController {
         }
         viewModel.initFetch()
     }
+    
+    private func startAnimatingAndHideList() {
+        self.activityIndicator.startAnimating()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.articleTableView?.alpha = 0.0
+        })
+    }
+    
+    private func stopAnimatingAndShowList() {
+        self.activityIndicator.stopAnimating()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.articleTableView?.alpha = 1.0
+        })
+    }
 }
+
 
 // MARK: - Tableview Delegate Extensions
 extension ArticlesViewController: UITableViewDataSource {
