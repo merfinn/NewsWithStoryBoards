@@ -29,6 +29,14 @@ class ArticlesViewController: UIViewController {
     
     private func configureViewModel() {
         
+        viewModel.showAlertClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                if let message = self?.viewModel.alertMessage {
+                    self?.showAlert( message )
+                }
+            }
+        }
+
         viewModel.updateLoadingStatus = { [weak self] in
             DispatchQueue.main.async {
                 let isLoading = self?.viewModel.isLoading ?? false                
@@ -43,6 +51,12 @@ class ArticlesViewController: UIViewController {
         viewModel.initFetch()
     }
     
+    func showAlert( _ message: String ) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction( UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     private func startAnimatingAndHideList() {
         self.activityIndicator.startAnimating()
         UIView.animate(withDuration: 0.2, animations: {

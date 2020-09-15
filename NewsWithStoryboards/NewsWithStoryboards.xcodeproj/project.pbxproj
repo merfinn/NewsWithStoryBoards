@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D5B1433F88FA981751F9618 /* Pods_NewsWithStoryboards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 459CAED9F2142A7D72DE62BE /* Pods_NewsWithStoryboards.framework */; };
+		59308C2225116B00009DE4A7 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59308C2125116B00009DE4A7 /* Utility.swift */; };
 		59CA20E7247B420F00B6733A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59CA20E6247B420F00B6733A /* WebKit.framework */; };
 		59E6996723AB7471009B74EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E6996623AB7471009B74EB /* AppDelegate.swift */; };
 		59E6996923AB7471009B74EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E6996823AB7471009B74EB /* SceneDelegate.swift */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		459CAED9F2142A7D72DE62BE /* Pods_NewsWithStoryboards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsWithStoryboards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59308C2125116B00009DE4A7 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		59CA20E6247B420F00B6733A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		59E6996323AB7471009B74EB /* NewsWithStoryboards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsWithStoryboards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59E6996623AB7471009B74EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59308C2025116AEB009DE4A7 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				59308C2125116B00009DE4A7 /* Utility.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		59CA20E5247B420F00B6733A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +148,7 @@
 		59E6996523AB7471009B74EB /* NewsWithStoryboards */ = {
 			isa = PBXGroup;
 			children = (
+				59308C2025116AEB009DE4A7 /* Utility */,
 				59E6999A23AB7528009B74EB /* ApiService */,
 				59E6999C23AB7549009B74EB /* Articles */,
 				59E699C623AB89CE009B74EB /* Detail */,
@@ -419,6 +430,7 @@
 				59E699BC23AB7921009B74EB /* ArticleListCellViewModel.swift in Sources */,
 				59E699AE23AB75CF009B74EB /* Webservice.swift in Sources */,
 				59E699BE23AB795F009B74EB /* ArticleListCell.swift in Sources */,
+				59308C2225116B00009DE4A7 /* Utility.swift in Sources */,
 				59E699BA23AB77FB009B74EB /* Article.swift in Sources */,
 				59E699C323AB7AF9009B74EB /* ArticleListViewModel.swift in Sources */,
 				59E6996923AB7471009B74EB /* SceneDelegate.swift in Sources */,

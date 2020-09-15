@@ -31,10 +31,10 @@ class APIService: APIServiceProtocol {
         
         Webservice().load(with: newsUrl) { ( articles: Articles? , response : URLResponse?, error :Error?) in
             if let articles = articles {
-                complete( true, articles.articles, error as? APIError )
+                complete( true, articles.articles, nil )
             }
             else {
-                complete( false, [], error as? APIError )
+                complete( false, [], APIError.noNetwork ) // POC
             }
         }
     }

@@ -150,7 +150,7 @@ class ArticleListViewModelTests: XCTestCase {
         let cellViewModelWithoutImageURL = sut!.createCellViewModel( article: articleWithoutImageURL)
 
         XCTAssertEqual(article.title, cellViewModel.titleText)
-        XCTAssertEqual( cellViewModel.dateAuthorText , sut.publisherFormatter(publishedAt: day, author: article.author))
+        XCTAssertEqual( cellViewModel.dateAuthorText , Utility.publisherFormatter(publishedAt: day, author: article.author))
 
         XCTAssertEqual(article.urlToImage, cellViewModel.imageUrl)
         
@@ -161,8 +161,8 @@ class ArticleListViewModelTests: XCTestCase {
         XCTAssertEqual(articleWithoutTitleAndDesc.articleDescription, cellViewModelWithoutTitleAndDesc.descText)
         
         XCTAssertEqual(cellViewModelWithoutArthAndDate.dateAuthorText, "")
-        XCTAssertEqual(cellViewModelWithoutArth.dateAuthorText, sut.publisherFormatter(publishedAt: articleWithoutArth.publishedAt, author: articleWithoutArth.author))
-        XCTAssertEqual(cellViewModelWithoutDate.dateAuthorText, sut.publisherFormatter(publishedAt: articleWithoutDate.publishedAt, author: articleWithoutDate.author))
+        XCTAssertEqual(cellViewModelWithoutArth.dateAuthorText, Utility.publisherFormatter(publishedAt: articleWithoutArth.publishedAt, author: articleWithoutArth.author))
+        XCTAssertEqual(cellViewModelWithoutDate.dateAuthorText, Utility.publisherFormatter(publishedAt: articleWithoutDate.publishedAt, author: articleWithoutDate.author))
         
         XCTAssertEqual(cellViewModelWithoutImageURL.imageUrl, nil)
 

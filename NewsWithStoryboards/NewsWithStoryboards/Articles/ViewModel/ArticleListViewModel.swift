@@ -65,7 +65,7 @@ class ArticleListViewModel {
         return ArticleListCellViewModel( titleText: article.title,
                                          descText: article.articleDescription, 
                                          imageUrl: article.urlToImage,
-                                         dateAuthorText: publisherFormatter(publishedAt: article.publishedAt, author: article.author),
+                                         dateAuthorText: Utility.publisherFormatter(publishedAt: article.publishedAt, author: article.author),
                                          contentText: article.content,
                                          sourceNameText: article.source?.name
         )
@@ -84,26 +84,5 @@ class ArticleListViewModel {
 extension ArticleListViewModel {
     func userPressed( at indexPath: IndexPath ){
         selectedArticle = self.articles[indexPath.row]
-    }
-}
-
-extension ArticleListViewModel {
-    
-    func getFormattedDate(date: Date) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: date)
-    }
-    
-    func publisherFormatter(publishedAt: Date?, author: String?) -> String {
-        
-        if publishedAt != nil && author != nil {
-            return (getFormattedDate(date: publishedAt!)!) + " , " + (author!)
-        } else if publishedAt != nil {
-            return getFormattedDate(date: publishedAt!)!
-        } else if author != nil {
-            return author!
-        }
-        return ""
     }
 }
